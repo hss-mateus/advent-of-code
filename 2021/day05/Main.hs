@@ -7,20 +7,14 @@ linePoints ((x1, y1), (x2, y2)) = zip xRange yRange
   where
     sizeX = abs (x1 - x2) + 1
     sizeY = abs (y1 - y2) + 1
-    xRange =
-      if sizeX == 1
-        then replicate sizeY x1
-        else
-          if x1 > x2
-            then [x1, pred x1 .. x2]
-            else [x1 .. x2]
-    yRange =
-      if sizeY == 1
-        then replicate sizeX y1
-        else
-          if y1 > y2
-            then [y1, pred y1 .. y2]
-            else [y1 .. y2]
+    xRange
+      | sizeX == 1 = replicate sizeY x1
+      | x1 > x2 = [x1, pred x1 .. x2]
+      | otherwise = [x1 .. x2]
+    yRange
+      | sizeY == 1 = replicate sizeX y1
+      | y1 > y2 = [y1, pred y1 .. y2]
+      | otherwise = [y1 .. y2]
 
 insertLine line grid = foldr incPoint grid points
   where
